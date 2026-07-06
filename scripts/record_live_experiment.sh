@@ -1,7 +1,8 @@
 #!/bin/bash
 # Record a live Gazebo tracking dataset (run while sim + square_ctrl are active).
-set -euo pipefail
+set -eo pipefail
 
+# ROS setup.bash uses unset vars; do not enable nounset (-u) before sourcing.
 source /opt/ros/humble/setup.bash
 source ~/BEFR_SS_2026/install/setup.bash
 source ~/BEFR-Project/install/setup.bash

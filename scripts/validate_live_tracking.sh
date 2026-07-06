@@ -1,10 +1,11 @@
 #!/bin/bash
 # Quick live validation: compare ground truth vs state estimate (run while stack is up).
-set -euo pipefail
+set -eo pipefail
 
+# ROS setup.bash uses unset vars; do not enable nounset (-u) before sourcing.
 source /opt/ros/humble/setup.bash
 source ~/BEFR_SS_2026/install/setup.bash
-source ~/BEFR-Project/install/setup.bash 2>/dev/null || true
+source ~/BEFR-Project/install/setup.bash
 
 echo "=== Clock (sim must be running) ==="
 timeout 3 ros2 topic hz /clock 2>/dev/null || echo "WARNING: /clock not publishing — press Play in Gazebo"
@@ -26,4 +27,5 @@ echo "=== Detection rate (3 s) ==="
 timeout 3 ros2 topic hz /visual_tracking/camera_0/detection 2>/dev/null || echo "WARNING: no detections"
 
 echo ""
-echo "Target: GT z between 1.0 and 2.0 m while flying; estimate should be within ~1–2 m of GT."
+echo "Target: GT z ≈ 3–8 m (square_ctrl); estimate should be within ~1–2 m of GT."
+echo "Cameras use config/cameras_gazebo.yaml (center z=5 m) by default."

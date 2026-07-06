@@ -21,6 +21,7 @@ def generate_launch_description() -> LaunchDescription:
     filter_type = LaunchConfiguration("filter_type")
     launch_camera_simulator = LaunchConfiguration("launch_camera_simulator")
     ground_truth_topic = LaunchConfiguration("ground_truth_topic")
+    cameras_config_path = LaunchConfiguration("cameras_config_path")
 
     camera_simulator_node = Node(
         package="befr_visual_tracking",
@@ -31,6 +32,7 @@ def generate_launch_description() -> LaunchDescription:
             ParameterFile(str(config_dir / "sensor_simulator.yaml"), allow_substs=True),
             {"use_sim_time": use_sim_time},
             {"ground_truth_topic": ground_truth_topic},
+            {"cameras_config_path": cameras_config_path},
         ],
         condition=IfCondition(launch_camera_simulator),
     )
@@ -44,6 +46,7 @@ def generate_launch_description() -> LaunchDescription:
             ParameterFile(str(config_dir / "tracking.yaml"), allow_substs=True),
             {"use_sim_time": use_sim_time},
             {"filter_type": filter_type},
+            {"cameras_config_path": cameras_config_path},
         ],
     )
 
@@ -63,6 +66,11 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument(
                 "ground_truth_topic",
                 default_value="/model/rrbot/odometry",
+            ),
+            DeclareLaunchArgument(
+                "cameras_config_path",
+                default_value=str(config_dir / "cameras_gazebo.yaml"),
+                description="Camera layout YAML (use cameras.yaml for offline z=1.5 m)",
             ),
             camera_simulator_node,
             tracker_node,

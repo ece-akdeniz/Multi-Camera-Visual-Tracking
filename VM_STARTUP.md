@@ -45,23 +45,13 @@ ros2 launch rrbot_gazebo rrbot_world.launch.py
 
 Wait until all 4 motor controllers show **Configured and activated**. Then press **Play** in Gazebo.
 
-### Terminal 2 — Verify sim clock, then fly
-
-```bash
-source /opt/ros/humble/setup.bash
-source ~/BEFR_SS_2026/install/setup.bash
-ros2 topic hz /clock          # must show steady rate before continuing
-ros2 run square_ctrl square_ctrl
-```
-
-Target altitude while flying: **z ≈ 1.0–2.0 m** (cameras look at `[0, 0, 1.5]`).
-
-### Terminal 3 — Visual tracking (start only after T1 playing + T2 flying)
+### Terminal 2 — Visual tracking (start after Gazebo Play)
 
 ```bash
 source /opt/ros/humble/setup.bash
 source ~/BEFR_SS_2026/install/setup.bash
 source ~/BEFR-Project/install/setup.bash
+ros2 topic hz /clock          # must show steady rate before continuing
 
 ros2 launch befr_visual_tracking tracking.launch.py \
     filter_type:=ekf \
@@ -70,12 +60,17 @@ ros2 launch befr_visual_tracking tracking.launch.py \
     ground_truth_topic:=/model/rrbot/odometry
 ```
 
-Other filters:
+Uses **`cameras_gazebo.yaml`** by default (flight volume center z = 5 m, wider 8 m camera ring) so tracking works at square_ctrl altitudes (~3–8 m).
+
+### Terminal 3 — Fly the drone
 
 ```bash
-ros2 launch befr_visual_tracking tracking.launch.py filter_type:=kf launch_camera_simulator:=true use_sim_time:=true ground_truth_topic:=/model/rrbot/odometry
-ros2 launch befr_visual_tracking tracking.launch.py filter_type:=ukf launch_camera_simulator:=true use_sim_time:=true ground_truth_topic:=/model/rrbot/odometry
+source /opt/ros/humble/setup.bash
+source ~/BEFR_SS_2026/install/setup.bash
+ros2 run square_ctrl square_ctrl
 ```
+
+No need to chase z ≈ 1.5 m anymore — start tracking first, then launch square_ctrl.
 
 ### Terminal 4 — Monitor
 
@@ -118,7 +113,7 @@ ros2 launch befr_visual_tracking record_experiment.launch.py \
 | Motor controller errors | Kill all Gazebo: `killall -9 gz ruby ros2`; relaunch once |
 | Odometry empty | Apply Ignition plugin names in `rrbot.xacro`, rebuild `rrbot_gazebo` |
 | NumPy / tf_transformations crash | `pip3 install 'numpy<2' --user` |
-| Estimate diverges (254 m off) | Drone must fly near z≈1.5 m; check GT with `ros2 topic echo /model/rrbot/odometry` |
+| Estimate diverges badly | Confirm `cameras_gazebo.yaml` is used (default in launch); check GT with `ros2 topic echo /model/rrbot/odometry` |
 
 ## Clean restart (when controllers break)
 

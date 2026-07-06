@@ -23,6 +23,7 @@ def generate_launch_description() -> LaunchDescription:
     output_dir = LaunchConfiguration("output_dir")
     record_duration_s = LaunchConfiguration("record_duration_s")
     bag_output = LaunchConfiguration("bag_output")
+    cameras_config_path = LaunchConfiguration("cameras_config_path")
 
     camera_simulator = Node(
         package="befr_visual_tracking",
@@ -33,6 +34,7 @@ def generate_launch_description() -> LaunchDescription:
             ParameterFile(str(config_dir / "sensor_simulator.yaml"), allow_substs=True),
             {"use_sim_time": use_sim_time},
             {"ground_truth_topic": ground_truth_topic},
+            {"cameras_config_path": cameras_config_path},
         ],
     )
 
@@ -90,6 +92,11 @@ def generate_launch_description() -> LaunchDescription:
                 "record_duration_s",
                 default_value="21.0",
                 description="Recording duration for one slow circle (~2*pi/0.3 s)",
+            ),
+            DeclareLaunchArgument(
+                "cameras_config_path",
+                default_value=str(config_dir / "cameras_gazebo.yaml"),
+                description="Camera layout YAML (use cameras.yaml for offline z=1.5 m)",
             ),
             camera_simulator,
             dataset_recorder,

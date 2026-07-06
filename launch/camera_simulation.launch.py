@@ -21,6 +21,7 @@ def generate_launch_description() -> LaunchDescription:
     use_sim_time = LaunchConfiguration("use_sim_time")
     ground_truth_topic = LaunchConfiguration("ground_truth_topic")
     launch_rviz = LaunchConfiguration("launch_rviz")
+    cameras_config_path = LaunchConfiguration("cameras_config_path")
 
     camera_simulator_node = Node(
         package="befr_visual_tracking",
@@ -31,6 +32,7 @@ def generate_launch_description() -> LaunchDescription:
             ParameterFile(str(config_dir / "sensor_simulator.yaml"), allow_substs=True),
             {"use_sim_time": use_sim_time},
             {"ground_truth_topic": ground_truth_topic},
+            {"cameras_config_path": cameras_config_path},
         ],
     )
 
@@ -60,6 +62,11 @@ def generate_launch_description() -> LaunchDescription:
                 "launch_rviz",
                 default_value="true",
                 description="Start RViz with the camera sensor visualization",
+            ),
+            DeclareLaunchArgument(
+                "cameras_config_path",
+                default_value=str(config_dir / "cameras_gazebo.yaml"),
+                description="Camera layout YAML (use cameras.yaml for offline z=1.5 m)",
             ),
             camera_simulator_node,
             rviz_node,
