@@ -7,8 +7,19 @@ source /opt/ros/humble/setup.bash
 source ~/BEFR_SS_2026/install/setup.bash
 source ~/BEFR-Project/install/setup.bash
 
+check_topic_hz() {
+  local topic="$1"
+  local warning="$2"
+  local out
+  out="$(timeout 3 ros2 topic hz "$topic" 2>&1 || true)"
+  echo "$out"
+  if ! echo "$out" | grep -q "average rate"; then
+    echo "WARNING: $warning"
+  fi
+}
+
 echo "=== Clock (sim must be running) ==="
-timeout 3 ros2 topic hz /clock 2>/dev/null || echo "WARNING: /clock not publishing — press Play in Gazebo"
+check_topic_hz /clock "/clock not publishing — press Play in Gazebo"
 
 echo ""
 echo "=== Motor controllers ==="
@@ -19,12 +30,20 @@ echo "=== Ground truth (one sample) ==="
 timeout 5 ros2 topic echo /model/rrbot/odometry --once 2>/dev/null || echo "WARNING: no odometry"
 
 echo ""
+echo "=== Tracking nodes ==="
+if ros2 node list 2>/dev/null | grep -qE 'camera_simulator|visual_tracker'; then
+  ros2 node list 2>/dev/null | grep -E 'camera_simulator|visual_tracker'
+else
+  echo "WARNING: tracking not running — start tracking.launch.py in another terminal"
+fi
+
+echo ""
 echo "=== State estimate (one sample) ==="
 timeout 5 ros2 topic echo /visual_tracking/state_estimate --once 2>/dev/null || echo "WARNING: no state estimate — is tracking launch running?"
 
 echo ""
 echo "=== Detection rate (3 s) ==="
-timeout 3 ros2 topic hz /visual_tracking/camera_0/detection 2>/dev/null || echo "WARNING: no detections"
+check_topic_hz /visual_tracking/camera_0/detection "no detections — is tracking launch running?"
 
 echo ""
 echo "Target: GT z ≈ 3–8 m (square_ctrl); estimate should be within ~1–2 m of GT."
