@@ -8,6 +8,7 @@ visual_tracker:
       - camera_0
       - camera_1
       - camera_2
+      - camera_3
     acceleration_noise_std: 0.5
     pixel_noise_std_u: 1.0
     pixel_noise_std_v: 1.0
