@@ -3,7 +3,8 @@
 Multi-camera visual tracking for a simulated quadcopter (Task 1 + advanced camera calibration).
 
 **Authors:** Ece Akdeniz, Lars Wolfgramm-Kuntz  
-**Course:** Bayesian Estimation for Flight Robotics (SoSe 2026)
+**Course:** Bayesian Estimation for Flight Robotics (SoSe 2026)  
+**Repository:** [github.com/ece-akdeniz/BEFR-Visual-Tracking](https://github.com/ece-akdeniz/BEFR-Visual-Tracking)
 
 ## Contents
 
