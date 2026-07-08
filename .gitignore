@@ -1,5 +1,25 @@
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
 .venv/
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Local dev (kept on disk, not for submission)
+.agents/
+lars-visualization/
+VM_STARTUP.md
+camera_model.ipynb
+scripts/
+config/
+rviz/
+presentation_anim (1).pptx
+
+# Large local-only previews
+presentation_anim/slide_previews/
+presentation_anim/advanced_plots/
