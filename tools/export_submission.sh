@@ -29,8 +29,6 @@ rsync -a \
   "$ROOT/OFFLINE_RESULTS.md" \
   "$ROOT/requirements.txt" \
   "$ROOT/setup.py" \
-  "$ROOT/setup.cfg" \
-  "$ROOT/package.xml" \
   "$ROOT/.gitignore" \
   "$ROOT/befr_visual_tracking" \
   "$ROOT/dashboard" \
@@ -38,7 +36,6 @@ rsync -a \
   "$ROOT/tests" \
   "$ROOT/results" \
   "$ROOT/presentation" \
-  "$ROOT/resource" \
   "$OUT/"
 
 # Matplotlib frame generator used for advanced slides
