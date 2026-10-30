@@ -156,7 +156,8 @@ class TrackerNode(Node):
             for camera_id in self._active_cameras
             if camera_id in buffered
         ]
-        if not detections:
+        # Skip partial sets: single-camera EKF updates on a loaded VM cause divergence.
+        if len(detections) < 2:
             return
 
         self._tracker.process_timestep(timestamp, detections)

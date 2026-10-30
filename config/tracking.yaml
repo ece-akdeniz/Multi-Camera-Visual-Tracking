@@ -15,4 +15,5 @@ visual_tracker:
     innovation_gate: 9.21
     monte_carlo_samples: 500
     random_seed: 42
-    sync_slop_sec: 0.002
+    # Live Gazebo needs a wider window so all 4 camera messages arrive before update.
+    sync_slop_sec: 0.035

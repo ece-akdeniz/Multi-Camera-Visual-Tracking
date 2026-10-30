@@ -31,10 +31,16 @@ timeout 5 ros2 topic echo /model/rrbot/odometry --once 2>/dev/null || echo "WARN
 
 echo ""
 echo "=== Tracking nodes ==="
-if ros2 node list 2>/dev/null | grep -qE 'camera_simulator|visual_tracker'; then
-  ros2 node list 2>/dev/null | grep -E 'camera_simulator|visual_tracker'
+NODES="$(ros2 node list 2>&1 || true)"
+if echo "$NODES" | grep -q '/camera_simulator'; then
+  echo "/camera_simulator"
 else
-  echo "WARNING: tracking not running — start tracking.launch.py in another terminal"
+  echo "WARNING: camera_simulator missing"
+fi
+if echo "$NODES" | grep -q '/visual_tracker'; then
+  echo "/visual_tracker"
+else
+  echo "WARNING: visual_tracker missing — check tracking terminal for crash (Ctrl+C in Terminal 2 and relaunch)"
 fi
 
 echo ""
