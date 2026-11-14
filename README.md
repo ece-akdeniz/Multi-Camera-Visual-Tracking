@@ -1,4 +1,4 @@
-# Multi-camera visual tracking for flight robotics
+# Multi-camera Visual Tracking for Flight Robotics
 
 Course project for **BEFR** — *Bayesian Estimation for Flight Robotics* (SoSe 2026) — at the [Institute of Flight Mechanics and Flight Control (IFR)](https://www.ifr.uni-stuttgart.de/), University of Stuttgart.
 
