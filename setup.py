@@ -3,6 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name="befr_visual_tracking",
     version="0.1.0",
+    description="Multi-camera visual tracking for flight robotics",
     packages=find_packages(exclude=["tests"]),
     install_requires=[
         "numpy>=1.24",

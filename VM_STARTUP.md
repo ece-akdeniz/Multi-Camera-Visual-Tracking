@@ -1,4 +1,4 @@
-# BEFR Visual Tracking — VM Startup Cheat Sheet
+# Multi-camera visual tracking for flight robotics — VM startup
 
 Ubuntu 22.04 VM, ROS 2 Humble, Ignition Gazebo 6.16.
 

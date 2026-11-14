@@ -4,6 +4,7 @@ from dashboard.lib.session import init_session_state
 
 init_session_state()
 st.title("Project overview")
+st.caption("Multi-camera visual tracking for flight robotics")
 
 st.markdown(
     """
