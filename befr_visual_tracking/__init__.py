@@ -1,4 +1,4 @@
-"""Multi-camera visual tracking for BEFR quadcopter state estimation."""
+"""Multi-camera visual tracking for flight robotics."""
 
 from befr_visual_tracking.camera_model import (
     Camera,

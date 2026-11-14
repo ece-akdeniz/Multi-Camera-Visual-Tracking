@@ -10,7 +10,9 @@ from befr_visual_tracking.experiments.runner import default_results_dir, run_exp
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description="Run controlled BEFR tracking experiments.")
+    parser = argparse.ArgumentParser(
+        description="Run controlled multi-camera visual tracking experiments."
+    )
     parser.add_argument("--list", action="store_true", help="List available experiment plans")
     parser.add_argument("--experiment", type=int, help="Experiment id (0-7, 101-104)")
     parser.add_argument(

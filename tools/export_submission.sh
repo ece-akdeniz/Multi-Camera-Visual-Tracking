@@ -54,5 +54,5 @@ __pycache__/
 EOF
 
 echo "Submission tree ready at: $OUT"
-echo "Create public GitHub repo: BEFR Visual Tracking  (URL slug: BEFR-Visual-Tracking)"
+echo "Create public GitHub repo: Multi-camera visual tracking for flight robotics  (URL slug: multi-camera-visual-tracking-flight-robotics)"
 du -sh "$OUT"

@@ -1,4 +1,4 @@
-# Multi-camera configuration for BEFR visual tracking (Phase 1).
+# Multi-camera visual tracking for flight robotics — camera layout (Phase 1).
 #
 # World frame: Gazebo ``world`` (+X forward, +Y left, +Z up).
 # Camera poses describe each camera_optical_frame in that world frame.

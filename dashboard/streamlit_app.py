@@ -1,4 +1,4 @@
-"""BEFR Visual Tracking Dashboard."""
+"""Dashboard for multi-camera visual tracking for flight robotics."""
 
 from __future__ import annotations
 
@@ -7,15 +7,15 @@ import streamlit as st
 from dashboard.lib.session import init_session_state
 
 st.set_page_config(
-    page_title="BEFR Visual Tracking",
+    page_title="Multi-camera visual tracking for flight robotics",
     page_icon="🛸",
     layout="wide",
 )
 
 init_session_state()
 
-st.title("BEFR Visual Tracking Dashboard")
-st.caption("Multi-camera Bayesian state estimation for quadcopter tracking")
+st.title("Multi-camera visual tracking for flight robotics")
+st.caption("Bayesian state estimation from fixed-camera pixel detections")
 
 st.markdown(
     """
